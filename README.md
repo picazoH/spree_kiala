@@ -23,8 +23,6 @@ TODO
 
 . Perhaps Iframe integration like Skrill.
 
-. Get Service Url from admin config instead of Active_Merchant Library.
-
 . Locales...
 
 
