@@ -21,8 +21,17 @@ module Spree
       if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala)
         calculator = @order.shipping_method.calculator
         redirect_to redirect_url_kiala(calculator, @order)
+      else
+        kpoint = find_kp_by_order(@order)
+        unless kpoint.nil?
+          kpoint.destroy
+        end
       end
 
+    end
+
+    def find_kp_by_order(order)
+      Spree::KialaPoint.find_by_order_id(order)
     end
 
     def kiala_opts(calculator, address)
@@ -37,8 +46,6 @@ module Spree
       }
     end
 
-
-
     def redirect_url_kiala(calculator, order)
       url = calculator.preferred_kiala_service_url
       opts = kiala_opts(calculator, order.ship_address)
@@ -51,14 +58,29 @@ module Spree
       URI.escape(url)
     end
 
-
-    # Handle the incoming user from Kiala Locale&Select Service
     def kiala_confirm
       load_order
-      #order_upgrade()
-      #payment_upgrade()
-      #flash[:notice] = I18n.t(:order_processed_successfully)
-      #redirect_to completion_route
+      kpoint = find_kp_by_order(@order)
+      if kpoint.nil?
+        Spree::KialaPoint.create(:shortkpid => params[:shortkpid],
+                                 :order_id => @order.id,
+                                 :kpname => params[:kpname],
+                                 :street => params[:street],
+                                 :zip => params[:zip],
+                                 :city => params[:city],
+                                 :locationhint => params[:locationhint],
+                                 :openinghours => params[:openinghours],
+                                 :label => params[:label])
+      else
+        kpoint.update_attributes(:shortkpid => params[:shortkpid],
+                                 :kpname => params[:kpname],
+                                 :street => params[:street],
+                                 :zip => params[:zip],
+                                 :city => params[:city],
+                                 :locationhint => params[:locationhint],
+                                 :openinghours => params[:openinghours],
+                                 :label => params[:label])
+      end
       redirect_to checkout_state_path(@order.checkout_steps.third)
     end
 
