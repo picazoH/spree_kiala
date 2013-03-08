@@ -1,0 +1,56 @@
+<!--
+  insert_bottom '[data-hook="admin_shipment_form_fields"]'
+  original '26d174faa13a0d9561d05ca43f8e9b36fd0bdd57'
+-->
+
+  <% if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala) ||
+        @order.shipping_method.calculator.kind_of?(Spree::Calculator::Mrw) %>
+
+    <fieldset data-hook="admin_shipment_private_area_details" class="no-border-bottom">
+      <legend><%= t(:shipping_company_private_area) %></legend>
+    <% unless @order.shipping_method.calculator.preferred_private_area_url.nil? %>
+      <div class="block-table">
+        <div class="field table-cell">
+          <%= shipment_form.label :shipping_company_private_area, t(:shipping_company_private_area_url) + ':' %>
+          <a icon="icon-hand-right" class="button icon-hand-right" href="<%= @order.shipping_method.calculator.preferred_private_area_url %>" target="_<%= @order.shipping_method.name %>" rel="nofollow"><%= @order.shipping_method.name %></a>
+        </div>
+      </div>
+    <% end %>
+
+      <% if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala) %>
+      <div class="block-table">
+        <div class="field table-cell">
+          <%= shipment_form.label :locale_and_select, t(:kiala_locale_and_select) + ':' %>
+          <table class="index" style="width:100%;" data-hook="admin_shipment_form_inventory_units">
+            <thead>
+            <tr data-hook="kiala_point_header">
+              <th style="width:130px;"><%= t(:shortkpid) %></th>
+              <th><%= t(:kpname) %></th>
+              <th><%= t(:street) %></th>
+              <th><%= t(:zip) %></th>
+              <th><%= t(:city) %></th>
+              <th><%= t(:locationhint) %></th>
+              <th><%= t(:openinghours) %></th>
+              <th><%= t(:label) %></th>
+            </tr>
+            </thead>
+            <tbody>
+            <% kp = @order.kiala_points %>
+            <tr data-hook="kiala_point_row">
+              <td><%= kp.shortkpid %></td>
+              <td><%= kp.kpname %></td>
+              <td><%= kp.street %></td>
+              <td><%= kp.zip %></td>
+              <td><%= kp.city %></td>
+              <td><%= kp.locationhint %></td>
+              <td><%= kp.openinghours %></td>
+              <td><%= kp.label %></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <% end %>
+    </fieldset>
+  <% end %>
+
