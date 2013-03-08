@@ -2,4 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 es:
-  kiala_shipping: "Cantidad fija en un rango (kiala)"
+  kiala_shipping: "Precio fijo en un rango (Kiala)"
+  mrw_shipping: "Precio fijo en un rango (Mrw)"
+  shipping_company_private_area: "área Privada de la compañía de envío"
+  shipping_company_private_area_url: "Url del APC"
+
+  kiala_locale_and_select: "kiala locale and select"
+  shortkpid: "Id Punto Kiala"
+  kpname: "Nombre Punto Kiala"
+  street: "calle"
+  locationhint: "pista del local"
+  openinghours: "Horas de apertura"
+  label: "Etiqueta"

@@ -3,3 +3,14 @@
 
 en:  
   kiala_shipping: "Flat in a range (Kiala)"
+  mrw_shipping: "Flat in a range (Mrw)"
+  shipping_company_private_area: "Private Area Shipping Company"
+  shipping_company_private_area_url: "Url for Private Area"
+
+  kiala_locale_and_select: "kiala locale and select"
+  shortkpid: "Id Kiala Point"
+  kpname: "Kiala Point Name"
+  street: "street"
+  locationhint: "Locationhint"
+  openinghours: "Openinghours"
+  label: "Label"
