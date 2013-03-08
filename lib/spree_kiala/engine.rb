@@ -21,6 +21,7 @@ module SpreeKiala
 
     initializer "spree.register.calculators" do |app|
       app.config.spree.calculators.shipping_methods << Spree::Calculator::Kiala
+      app.config.spree.calculators.shipping_methods << Spree::Calculator::Mrw
     end
 
   end
