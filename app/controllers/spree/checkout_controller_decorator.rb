@@ -81,6 +81,7 @@ module Spree
                                  :openinghours => params[:openinghours],
                                  :label => params[:label])
       end
+      @order.next
       redirect_to checkout_state_path(@order.checkout_steps.third)
     end
 
