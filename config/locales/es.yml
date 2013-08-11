@@ -5,6 +5,9 @@ es:
   kiala_shipping: "Precio fijo en un rango (Kiala)"
   mrw_shipping: "Precio fijo en un rango (Mrw)"
   shipping_company_private_area: "área Privada de la compañía de envío"
+  change_shipment_state: "Cambiar el estado del envío"
+  ready_shipment_state: "Listo"
+  shipped_shipment_state: "Enviado"
   shipping_company_private_area_url: "Url del APC"
 
   kiala_locale_and_select: "kiala locale and select"

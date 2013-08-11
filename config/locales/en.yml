@@ -5,6 +5,10 @@ en:
   kiala_shipping: "Flat in a range (Kiala)"
   mrw_shipping: "Flat in a range (Mrw)"
   shipping_company_private_area: "Private Area Shipping Company"
+  change_shipment_state: "Change shipment state"
+  ready_shipment_state: "Ready"
+  shipped_shipment_state: "Shipped"
+  shipment_shipped: "Change shipment state"
   shipping_company_private_area_url: "Url for Private Area"
 
   kiala_locale_and_select: "kiala locale and select"

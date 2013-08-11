@@ -1,7 +1,16 @@
 <!--
   insert_bottom '[data-hook="admin_shipment_form_fields"]'
-  original '26d174faa13a0d9561d05ca43f8e9b36fd0bdd57'
 -->
+<fieldset data-hook="admin_shipment_state" class="no-border-bottom">
+    <legend><%= t(:change_shipment_state) %></legend>
+    <div class="block-table">
+      <div class="field table-cell">
+        <a icon="icon-truck" class="button icon-truck" href="<%= shipment_state_upgrade_admin_order_shipment_url %>" target="_self" rel="nofollow"><%= t(:shipped_shipment_state) %></a>
+        <a icon="icon-ok" class="button icon-ok" href="<%= shipment_state_upgrade_admin_order_shipment_url+'?state=ready' %>" target="_self" rel="nofollow"><%= t(:ready_shipment_state) %></a>
+      </div>
+    </div>
+</fieldset>
+
 
   <% if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala) ||
         @order.shipping_method.calculator.kind_of?(Spree::Calculator::Mrw) %>
