@@ -1,35 +1,27 @@
 <!--
-  insert_bottom '[data-hook="admin_shipment_form_fields"]'
+  insert_bottom '[data-hook="admin_order_form_fields"]'
 -->
 <fieldset data-hook="admin_shipment_state" class="no-border-bottom">
     <legend><%= t(:change_shipment_state) %></legend>
     <div class="block-table">
       <div class="field table-cell">
-        <a icon="icon-truck" class="button icon-truck" href="<%= shipment_state_upgrade_admin_order_shipment_url %>" target="_self" rel="nofollow"><%= t(:shipped_shipment_state) %></a>
-        <a icon="icon-ok" class="button icon-ok" href="<%= shipment_state_upgrade_admin_order_shipment_url+'?state=ready' %>" target="_self" rel="nofollow"><%= t(:ready_shipment_state) %></a>
+        <a icon="icon-truck" class="button icon-truck" href="<%= shipment_state_upgrade_admin_order_url %>" target="_self" rel="nofollow"><%= t(:shipped_shipment_state) %></a>
+        <a icon="icon-ok" class="button icon-ok" href="<%= shipment_state_upgrade_admin_order_url+'?state=ready' %>" target="_self" rel="nofollow"><%= t(:ready_shipment_state) %></a>
       </div>
     </div>
 </fieldset>
 
 
-  <% if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala) ||
-        @order.shipping_method.calculator.kind_of?(Spree::Calculator::Mrw) %>
+  <% if @order.shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::Kiala) ||
+        @order.shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::FlatInRange) %>
 
     <fieldset data-hook="admin_shipment_private_area_details" class="no-border-bottom">
       <legend><%= t(:shipping_company_private_area) %></legend>
-    <% unless @order.shipping_method.calculator.preferred_private_area_url.nil? %>
-      <div class="block-table">
-        <div class="field table-cell">
-          <%= shipment_form.label :shipping_company_private_area, t(:shipping_company_private_area_url) + ':' %>
-          <a icon="icon-hand-right" class="button icon-hand-right" href="<%= @order.shipping_method.calculator.preferred_private_area_url %>" target="_<%= @order.shipping_method.name %>" rel="nofollow"><%= @order.shipping_method.name %></a>
-        </div>
-      </div>
-    <% end %>
 
-      <% if @order.shipping_method.calculator.kind_of?(Spree::Calculator::Kiala) %>
+      <% if @order.shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala) %>
       <div class="block-table">
         <div class="field table-cell">
-          <%= shipment_form.label :locale_and_select, t(:kiala_locale_and_select) + ':' %>
+          <%= label :locale_and_select, t(:kiala_locale_and_select) + ':' %>
           <table class="index" style="width:100%;" data-hook="admin_shipment_form_inventory_units">
             <thead>
             <tr data-hook="kiala_point_header">
@@ -60,6 +52,16 @@
         </div>
       </div>
       <% end %>
+
+      <% unless @order.shipment.shipping_method.calculator.preferred_private_area_url.nil? %>
+          <div class="block-table">
+            <div class="field table-cell">
+              <%= label :shipping_company_private_area, t(:shipping_company_private_area_url) + ': ' %>
+              <a icon="icon-hand-right" class="button icon-hand-right" href="<%= @order.shipment.shipping_method.calculator.preferred_private_area_url %>" target="_<%= @order.shipment.shipping_method.name %>" rel="nofollow"><%= @order.shipment.shipping_method.name %></a>
+            </div>
+          </div>
+      <% end %>
+
     </fieldset>
   <% end %>
 

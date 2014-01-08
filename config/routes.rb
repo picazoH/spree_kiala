@@ -7,12 +7,10 @@ Spree::Core::Engine.routes.draw do
     end
 
     namespace :admin do
-      resources :orders do
-        resources :shipments, :controller => 'shipments' do
+      resources :orders, :controller => 'orders' do
           member do
             get :shipment_state_upgrade
           end
-        end
       end
     end
 end

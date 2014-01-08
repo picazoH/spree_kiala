@@ -3,7 +3,7 @@
 
 es:
   kiala_shipping: "Precio fijo en un rango (Kiala)"
-  mrw_shipping: "Precio fijo en un rango (Mrw)"
+  FlatInRange: "Precio fijo en un rango"
   shipping_company_private_area: "área Privada de la compañía de envío"
   change_shipment_state: "Cambiar el estado del envío"
   ready_shipment_state: "Listo"
