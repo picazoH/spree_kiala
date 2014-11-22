@@ -9,7 +9,7 @@ module Spree
       return unless (params[:state] == "delivery")
       return unless params[:order][:shipments_attributes]
 
-      load_order
+      load_order_with_lock
       if not @order.errors.empty?
         render :edit and return
       end
@@ -56,7 +56,7 @@ module Spree
     end
 
     def kiala_confirm
-      load_order
+      load_order_with_lock
       kpoint = find_kp_by_order(@order)
       if kpoint.nil?
         Spree::KialaPoint.create(:shortkpid => params[:shortkpid],
