@@ -10,6 +10,7 @@ module Spree
       return unless params[:order][:shipments_attributes]
 
       load_order_with_lock
+      @order.update_attributes(object_params)
       if not @order.errors.empty?
         render :edit and return
       end
