@@ -11,10 +11,6 @@ module Spree
       preference :upper_boundry,     :decimal, :default => 50.0
       preference :amount,            :decimal, :default => 5.0
 
-      attr_accessible attr_accessible :preferred_private_area_url,
-                                      :preferred_dspid, :preferred_kiala_service_url, :preferred_preparationdelay,
-                                      :preferred_lower_boundry, :preferred_upper_boundry, :preferred_amount
-
       def self.description
         I18n.t(:kiala_shipping)
       end

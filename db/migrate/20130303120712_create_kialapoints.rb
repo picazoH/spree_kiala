@@ -1,8 +1,8 @@
 class CreateKialapoints < ActiveRecord::Migration
   def up
     create_table :spree_kiala_points do |t|
-      t.integer :shortkpid,       :limit => 10,   :null => false
-      t.integer :order_id,                       :null => false
+      t.string  :shortkpid,        :limit => 10,   :null => false
+      t.integer :order_id,                         :null => false
       t.string  :kpname,           :limit => 50
       t.string  :street,           :limit => 300
       t.string  :zip,              :limit => 10

@@ -1,67 +1,70 @@
 <!--
   insert_bottom '[data-hook="admin_order_form_fields"]'
 -->
+<% ### No está pensado para disponer de varios envíos por Orden/pedido %>
 <fieldset data-hook="admin_shipment_state" class="no-border-bottom">
     <legend><%= t(:change_shipment_state) %></legend>
     <div class="block-table">
       <div class="field table-cell">
-        <a icon="icon-truck" class="button icon-truck" href="<%= shipment_state_upgrade_admin_order_url %>" target="_self" rel="nofollow"><%= t(:shipped_shipment_state) %></a>
-        <a icon="icon-ok" class="button icon-ok" href="<%= shipment_state_upgrade_admin_order_url+'?state=ready' %>" target="_self" rel="nofollow"><%= t(:ready_shipment_state) %></a>
+        <%= button_link_to t(:shipped_shipment_state), shipment_state_upgrade_admin_order_path, icon: 'truck' %>
+        <%= button_link_to t(:ready_shipment_state), shipment_state_upgrade_admin_order_path(:state => 'ready'), icon: 'approve' %>
       </div>
     </div>
 </fieldset>
 
 
-  <% if @order.shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::Kiala) ||
-        @order.shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::FlatInRange) %>
+<% order.shipments.each do |shipment| %>
+<% if shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::Kiala) ||
+      shipment.shipping_method.calculator.kind_of?( Spree::Calculator::Shipping::FlatInRange) %>
 
-    <fieldset data-hook="admin_shipment_private_area_details" class="no-border-bottom">
-      <legend><%= t(:shipping_company_private_area) %></legend>
+<fieldset data-hook="admin_shipment_private_area_details" class="no-border-bottom">
+  <legend><%= t(:shipping_company_private_area) %></legend>
 
-      <% if @order.shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala) %>
+  <% if shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala) %>
+  <div class="block-table">
+    <div class="field table-cell">
+      <%= label :locale_and_select, t(:kiala_locale_and_select) + ':' %>
+      <table class="index" style="width:100%;" data-hook="admin_shipment_form_inventory_units">
+        <thead>
+        <tr data-hook="kiala_point_header">
+          <th style="width:130px;"><%= t(:shortkpid) %></th>
+          <th><%= t(:kpname) %></th>
+          <th><%= t(:street) %></th>
+          <th><%= t(:zip) %></th>
+          <th><%= t(:city) %></th>
+          <th><%= t(:locationhint) %></th>
+          <th><%= t(:openinghours) %></th>
+          <th><%= t(:label) %></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% kp = @order.kiala_points %>
+        <tr data-hook="kiala_point_row">
+          <td><%= kp.shortkpid %></td>
+          <td><%= kp.kpname %></td>
+          <td><%= kp.street %></td>
+          <td><%= kp.zip %></td>
+          <td><%= kp.city %></td>
+          <td><%= kp.locationhint %></td>
+          <td><%= kp.openinghours %></td>
+          <td><%= kp.label %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <% end %>
+
+  <% unless shipment.shipping_method.calculator.preferred_private_area_url.nil? %>
       <div class="block-table">
         <div class="field table-cell">
-          <%= label :locale_and_select, t(:kiala_locale_and_select) + ':' %>
-          <table class="index" style="width:100%;" data-hook="admin_shipment_form_inventory_units">
-            <thead>
-            <tr data-hook="kiala_point_header">
-              <th style="width:130px;"><%= t(:shortkpid) %></th>
-              <th><%= t(:kpname) %></th>
-              <th><%= t(:street) %></th>
-              <th><%= t(:zip) %></th>
-              <th><%= t(:city) %></th>
-              <th><%= t(:locationhint) %></th>
-              <th><%= t(:openinghours) %></th>
-              <th><%= t(:label) %></th>
-            </tr>
-            </thead>
-            <tbody>
-            <% kp = @order.kiala_points %>
-            <tr data-hook="kiala_point_row">
-              <td><%= kp.shortkpid %></td>
-              <td><%= kp.kpname %></td>
-              <td><%= kp.street %></td>
-              <td><%= kp.zip %></td>
-              <td><%= kp.city %></td>
-              <td><%= kp.locationhint %></td>
-              <td><%= kp.openinghours %></td>
-              <td><%= kp.label %></td>
-            </tr>
-            </tbody>
-          </table>
+          <%= label :shipping_company_private_area, t(:shipping_company_private_area_url) + ': ' %>
+          <%= button_link_to shipment.shipping_method.name, shipment.shipping_method.calculator.preferred_private_area_url, icon: 'hand-o-right', :target => '_'+shipment.shipping_method.name %>
         </div>
       </div>
-      <% end %>
-
-      <% unless @order.shipment.shipping_method.calculator.preferred_private_area_url.nil? %>
-          <div class="block-table">
-            <div class="field table-cell">
-              <%= label :shipping_company_private_area, t(:shipping_company_private_area_url) + ': ' %>
-              <a icon="icon-hand-right" class="button icon-hand-right" href="<%= @order.shipment.shipping_method.calculator.preferred_private_area_url %>" target="_<%= @order.shipment.shipping_method.name %>" rel="nofollow"><%= @order.shipment.shipping_method.name %></a>
-            </div>
-          </div>
-      <% end %>
-
-    </fieldset>
   <% end %>
+
+</fieldset>
+<% end %>
+<% end %>
 

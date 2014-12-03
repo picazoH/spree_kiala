@@ -15,8 +15,8 @@ module Spree
       end
 
 
-      if @order.shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala)
-        calculator = @order.shipment.shipping_method.calculator
+      if @order.shipments.first.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala)
+        calculator = @order.shipments.first.shipping_method.calculator
         redirect_to redirect_url_kiala(calculator, @order)
       else
         kpoint = find_kp_by_order(@order)
@@ -69,7 +69,7 @@ module Spree
                                  :openinghours => params[:openinghours],
                                  :label => params[:label])
       else
-        kpoint.update_attributes(:shortkpid => params[:shortkpid],
+        kpoint.update(:shortkpid => params[:shortkpid],
                                  :kpname => params[:kpname],
                                  :street => params[:street],
                                  :zip => params[:zip],
@@ -81,7 +81,6 @@ module Spree
       @order.next
       redirect_to checkout_state_path(@order.checkout_steps.third)
     end
-
 
   end
 end
