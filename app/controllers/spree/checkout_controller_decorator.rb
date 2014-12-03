@@ -10,19 +10,27 @@ module Spree
       return unless params[:order][:shipments_attributes]
 
       load_order_with_lock
+      @order.update_from_params(params, permitted_checkout_attributes, request.headers.env)
       if not @order.errors.empty?
         render :edit and return
       end
 
+      kiala_shipment = nil
+      @order.shipments.each do |shipment|
+        if shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala)
+          kiala_shipment = shipment
+          break
+        end
+      end
 
-      if @order.shipments.first.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala)
-        calculator = @order.shipments.first.shipping_method.calculator
-        redirect_to redirect_url_kiala(calculator, @order)
-      else
+      if kiala_shipment.nil?
         kpoint = find_kp_by_order(@order)
         unless kpoint.nil?
           kpoint.destroy
         end
+      elsif kiala_shipment.shipping_method.calculator.kind_of?(Spree::Calculator::Shipping::Kiala)
+        calculator = @order.shipments.first.shipping_method.calculator
+        redirect_to redirect_url_kiala(calculator, @order)
       end
 
     end
@@ -69,7 +77,7 @@ module Spree
                                  :openinghours => params[:openinghours],
                                  :label => params[:label])
       else
-        kpoint.update(:shortkpid => params[:shortkpid],
+        kpoint.update_attributes(:shortkpid => params[:shortkpid],
                                  :kpname => params[:kpname],
                                  :street => params[:street],
                                  :zip => params[:zip],
