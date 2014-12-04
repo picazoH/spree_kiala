@@ -77,14 +77,14 @@ module Spree
                                  :openinghours => params[:openinghours],
                                  :label => params[:label])
       else
-        kpoint.update_attributes(:shortkpid => params[:shortkpid],
-                                 :kpname => params[:kpname],
-                                 :street => params[:street],
-                                 :zip => params[:zip],
-                                 :city => params[:city],
-                                 :locationhint => params[:locationhint],
-                                 :openinghours => params[:openinghours],
-                                 :label => params[:label])
+        kpoint.update(:shortkpid => params[:shortkpid],
+                      :kpname => params[:kpname],
+                      :street => params[:street],
+                      :zip => params[:zip],
+                      :city => params[:city],
+                      :locationhint => params[:locationhint],
+                      :openinghours => params[:openinghours],
+                      :label => params[:label])
       end
       @order.next
       redirect_to checkout_state_path(@order.checkout_steps.third)
