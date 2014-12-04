@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:  
+  unapprove: "unnaprove"
   kiala_shipping: "Flat in a range (Kiala)"
   FlatInRange: "Flat in a range"
   shipping_company_private_area: "Private Area Shipping Company"
@@ -10,7 +11,6 @@ en:
   shipped_shipment_state: "Shipped"
   shipment_shipped: "Change shipment state"
   shipping_company_private_area_url: "Url for Private Area"
-
   kiala_locale_and_select: "kiala locale and select"
   shortkpid: "Id Kiala Point"
   kpname: "Kiala Point Name"

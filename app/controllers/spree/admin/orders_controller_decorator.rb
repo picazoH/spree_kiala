@@ -6,13 +6,15 @@ module Spree
 
       def shipment_state_upgrade
         state = params[:state] || "shipped"
-        order = Spree::Order.find_by_number(params[:id])
-        order.update(:shipment_state => state)
-
-        order.shipments.each do |shipment|
+        @order.update(:shipment_state => state)
+        @order.shipments.each do |shipment|
           shipment.update(:state => state)
         end
+        redirect_to edit_admin_order_url
+      end
 
+      def undo_approve_order
+        @order.update(:approver_id => nil, :approved_at => nil)
         redirect_to edit_admin_order_url
       end
 

@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 es:
+  unapprove: "desaprobar"
   kiala_shipping: "Precio fijo en un rango (Kiala)"
   FlatInRange: "Precio fijo en un rango"
   shipping_company_private_area: "área Privada de la compañía de envío"
@@ -9,7 +10,6 @@ es:
   ready_shipment_state: "Listo"
   shipped_shipment_state: "Enviado"
   shipping_company_private_area_url: "Url del APC"
-
   kiala_locale_and_select: "kiala locale and select"
   shortkpid: "Id Punto Kiala"
   kpname: "Nombre Punto Kiala"

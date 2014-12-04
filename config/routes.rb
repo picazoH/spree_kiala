@@ -7,6 +7,7 @@ Spree::Core::Engine.routes.draw do
     resources :orders, :controller => 'orders' do
         member do
           get :shipment_state_upgrade
+          get :undo_approve_order
         end
     end
   end
